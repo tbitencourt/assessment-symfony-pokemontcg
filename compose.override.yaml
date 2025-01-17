@@ -9,6 +9,7 @@ services:
 ###> symfony/mailer ###
   mailer:
     image: axllent/mailpit
+    container_name: 'assessment-symfony-pokemontcg-mailer'
     ports:
       - "1025"
       - "8025"
