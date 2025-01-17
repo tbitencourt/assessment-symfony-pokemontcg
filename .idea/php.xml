@@ -5,6 +5,10 @@
       <LaravelPintConfiguration tool_path="$PROJECT_DIR$/vendor/bin/pint" />
     </laravel_pint_settings>
   </component>
+  <component name="LaravelPintOptionsConfiguration">
+    <option name="pintJsonPath" value="$PROJECT_DIR$/pint.json" />
+    <option name="ruleset" value="symfony" />
+  </component>
   <component name="MessDetectorOptionsConfiguration">
     <option name="transferred" value="true" />
   </component>
@@ -14,6 +18,9 @@
   <component name="PHPCodeSnifferOptionsConfiguration">
     <option name="highlightLevel" value="WARNING" />
     <option name="transferred" value="true" />
+  </component>
+  <component name="PhpExternalFormatter">
+    <option name="externalFormatter" value="LARAVEL_PINT" />
   </component>
   <component name="PhpIncludePathManager">
     <include_path>
@@ -218,13 +225,16 @@
       </interpreter>
     </phpInfoCache>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.3" />
   <component name="PhpStan">
     <PhpStan_settings>
       <PhpStanConfiguration tool_path="$PROJECT_DIR$/vendor/bin/phpstan" />
     </PhpStan_settings>
   </component>
   <component name="PhpStanOptionsConfiguration">
+    <option name="autoload" value="$PROJECT_DIR$/vendor/autoload.php" />
+    <option name="config" value="$PROJECT_DIR$/phpstan.dist.neon" />
+    <option name="level" value="8" />
     <option name="transferred" value="true" />
   </component>
   <component name="PhpUnit">
