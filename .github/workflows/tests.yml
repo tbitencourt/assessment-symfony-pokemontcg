@@ -42,4 +42,4 @@ jobs:
         run: composer install --no-interaction --no-progress --ansi
 
       - name: Integration Tests
-        run: composer test:unit
+        run: composer test
