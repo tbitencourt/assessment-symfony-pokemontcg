@@ -85,6 +85,18 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "lint": "pint",
+        "refactor": "rector",
+        "test:unit": "php bin/phpunit",
+        "test:lint": "pint --test",
+        "test:types": "phpstan analyse --ansi",
+        "test:refactor": "rector --dry-run",
+        "test": [
+            "@test:unit",
+            "@test:lint",
+            "@test:types",
+            "@test:refactor"
         ]
     },
     "conflict": {
@@ -97,7 +109,10 @@
         }
     },
     "require-dev": {
+        "laravel/pint": "^1.20",
+        "phpstan/phpstan": "^2.1",
         "phpunit/phpunit": "^9.6.22",
+        "rector/rector": "^2.0",
         "symfony/browser-kit": "7.2.*",
         "symfony/css-selector": "7.2.*",
         "symfony/debug-bundle": "7.2.*",
