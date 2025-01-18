@@ -110,9 +110,9 @@
     },
     "require-dev": {
         "laravel/pint": "^1.20",
-        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan": "^2.1.1",
         "phpunit/phpunit": "^9.6.22",
-        "rector/rector": "^2.0",
+        "rector/rector": "^2.0.6",
         "symfony/browser-kit": "7.2.*",
         "symfony/css-selector": "7.2.*",
         "symfony/debug-bundle": "7.2.*",
