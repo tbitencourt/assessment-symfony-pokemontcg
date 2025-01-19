@@ -10,11 +10,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class CardsController extends AbstractController
 {
-    #[Route('/cards', name: 'app_cards')]
+    #[Route('/cards', name: 'cards_index')]
     public function index(): Response
     {
         return $this->render('cards/index.html.twig', [
-            'controller_name' => 'CardsController',
+            'cards' => [],
         ]);
     }
 }

@@ -32,6 +32,8 @@ services:
   database:
     image: postgres:16-alpine
     container_name: 'assessment-symfony-pokemontcg-db'
+    ports:
+      - ${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
