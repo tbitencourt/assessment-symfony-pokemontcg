@@ -36,12 +36,8 @@ class PokemonAttack
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
 
-    /**
-     * @var Collection<int, Card>|null
-     */
-    #[ORM\ManyToMany(targetEntity: Card::class, inversedBy: 'attacks')]
-    #[ORM\JoinTable(name: 'card_pokemon_attack')]
-    private ?Collection $cards = null;
+    #[ORM\ManyToOne(targetEntity: Card::class, inversedBy: 'attacks')]
+    private ?Card $card = null;
 
     public function getId(): ?int
     {
@@ -86,6 +82,23 @@ class PokemonAttack
         return $this;
     }
 
+    public function checkCost(string $type): int
+    {
+        if (
+            is_null($this->cost)
+            || $this->cost->isEmpty()) {
+            return 0;
+        }
+        $count = 0;
+        foreach ($this->cost as $cost) {
+            if ($cost->getType()?->getName() === $type) {
+                ++$count;
+            }
+        }
+
+        return $count;
+    }
+
     public function getConvertedEnergyCost(): ?int
     {
         return $this->convertedEnergyCost;
@@ -103,7 +116,7 @@ class PokemonAttack
         return $this->damage;
     }
 
-    public function setDamage(string $damage): static
+    public function setDamage(?string $damage): static
     {
         $this->damage = $damage;
 
@@ -115,30 +128,24 @@ class PokemonAttack
         return $this->text;
     }
 
-    public function setText(string $text): static
+    public function setText(?string $text): static
     {
         $this->text = $text;
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, Card>|null
-     */
-    public function getCards(): ?Collection
+    public function getCards(): ?Card
     {
-        return $this->cards;
+        return $this->card;
     }
 
     /**
      * @return $this
      */
-    public function addCard(Card $card): static
+    public function setCard(Card $card): static
     {
-        if (is_null($this->cards)) {
-            $this->cards = new ArrayCollection();
-        }
-        $this->cards->add($card);
+        $this->card = $card;
 
         return $this;
     }

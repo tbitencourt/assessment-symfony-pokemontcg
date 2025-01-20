@@ -10,6 +10,7 @@ use App\Entity\PokemonAttack;
 use App\Entity\PokemonAttackCost;
 use App\Entity\PokemonResistance;
 use App\Entity\PokemonWeakness;
+use App\Entity\Set;
 use App\Entity\Type;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -40,6 +41,17 @@ final class AppFixtures extends Fixture
 
     private function addNewCard(ObjectManager $manager, stdClass $cardData): void
     {
+        $set = new Set();
+        /* @phpstan-ignore offsetAccess.nonOffsetAccessible, argument.type */
+        $set->setId($cardData->set['id']);
+        /* @phpstan-ignore offsetAccess.nonOffsetAccessible, argument.type */
+        $set->setName($cardData->set['name']);
+        /* @phpstan-ignore offsetAccess.nonOffsetAccessible, argument.type */
+        $set->setSeries($cardData->set['series']);
+        /* @phpstan-ignore offsetAccess.nonOffsetAccessible, argument.type */
+        $set->setPtcgoCode($cardData->set['ptcgoCode']);
+        $manager->persist($set);
+
         $card = new Card();
         /* @phpstan-ignore argument.type */
         $card->setId($cardData->id);
@@ -47,6 +59,7 @@ final class AppFixtures extends Fixture
         $card->setName($cardData->name);
         /* @phpstan-ignore argument.type */
         $card->setSupertype($cardData->supertype);
+        $card->setSet($set);
         $manager->persist($card);
 
         $types = (array) $cardData->types;
@@ -106,7 +119,7 @@ final class AppFixtures extends Fixture
                 $pokemonAttack->setDamage($attack['damage']);
                 /* @phpstan-ignore offsetAccess.nonOffsetAccessible, argument.type */
                 $pokemonAttack->setText($attack['text']);
-                $pokemonAttack->addCard($card);
+                $pokemonAttack->setCard($card);
                 $manager->persist($pokemonAttack);
             }
         }

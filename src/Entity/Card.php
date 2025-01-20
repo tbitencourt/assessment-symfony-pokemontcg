@@ -38,7 +38,7 @@ class Card
     /**
      * @var Collection<int, PokemonAttack>|null
      */
-    #[ORM\ManyToMany(targetEntity: PokemonAttack::class, mappedBy: 'cards')]
+    #[ORM\OneToMany(targetEntity: PokemonAttack::class, mappedBy: 'card')]
     private ?Collection $attacks = null;
 
     /**
@@ -52,6 +52,9 @@ class Card
      */
     #[ORM\ManyToMany(targetEntity: PokemonResistance::class, mappedBy: 'cards')]
     private ?Collection $resistances = null;
+
+    #[ORM\ManyToOne(targetEntity: Set::class, inversedBy: 'cards')]
+    private ?Set $set = null;
 
     public function getId(): ?string
     {
@@ -149,6 +152,17 @@ class Card
         return $this;
     }
 
+    public function checkType(Type $type): bool
+    {
+        if (is_null($this->types)
+            || $this->types->isEmpty()
+        ) {
+            return false;
+        }
+
+        return array_any($this->types->toArray(), fn ($cardType): bool => $type->getName() === $cardType->getName());
+    }
+
     /**
      * @return Collection<int, PokemonAttack>|null
      */
@@ -202,6 +216,18 @@ class Card
             $this->resistances = new ArrayCollection();
         }
         $this->resistances->add($pokemonResistance);
+
+        return $this;
+    }
+
+    public function getSet(): ?Set
+    {
+        return $this->set;
+    }
+
+    public function setSet(?Set $set): static
+    {
+        $this->set = $set;
 
         return $this;
     }

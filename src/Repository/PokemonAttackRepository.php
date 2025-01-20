@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repository;
 
+use App\Entity\Card;
 use App\Entity\PokemonAttack;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -33,13 +34,17 @@ final class PokemonAttackRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?PokemonAttack
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findOneByCardAndName(Card $card, string $name): ?PokemonAttack
+    {
+        /* @phpstan-ignore return.type */
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.card', 'c')
+            ->andWhere('c.id = :card_id')
+            ->setParameter('card_id', $card->getId())
+            ->andWhere('p.name = :name')
+            ->setParameter('name', $name)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

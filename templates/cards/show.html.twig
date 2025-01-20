@@ -52,5 +52,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('cards_index') }}">Voltar</a>
+    {% if page is defined and page is not empty and page > 1 %}
+        <a href="{{ path('cards_index', {'page': page}) }}">Voltar</a>
+    {% else %}
+        <a href="{{ path('cards_index') }}">Voltar</a>
+    {% endif %}
 {% endblock %}
