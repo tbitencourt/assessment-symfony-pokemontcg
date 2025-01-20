@@ -15,11 +15,14 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 final class CardRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
+    public function __construct(ManagerRegistry $registry, private readonly PaginatorInterface $paginator)
     {
         parent::__construct($registry, Card::class);
     }
 
+    /**
+     * @return PaginationInterface<int, mixed>
+     */
     public function paginateCards(int $page, int $limit): PaginationInterface
     {
         return $this->paginator->paginate(

@@ -214,9 +214,7 @@ final class PokemonDatabaseService
                 $attack->setName($pokemonCardAttack->getName());
             }
             $attack->setConvertedEnergyCost($pokemonCardAttack->getConvertedEnergyCost());
-            /* @phpstan-ignore argument.type */
             $attack->setDamage($pokemonCardAttack->getDamage());
-            /* @phpstan-ignore argument.type */
             $attack->setText($pokemonCardAttack->getText());
             $this->manager->persist($attack);
             /* @phpstan-ignore argument.type */
