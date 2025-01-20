@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y \
     gnupg
 
 # Install extensions
-RUN docker-php-ext-install pdo_mysql intl zip
+RUN docker-php-ext-install pdo_mysql pdo_pgsql intl zip
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install gd
 RUN docker-php-ext-configure pcntl --enable-pcntl

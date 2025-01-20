@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Welcome to Pokemon TCG Portal!</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Imagem da carta</th>
+                <th>Nome do Pokémon</th>
+                <th>ID do Pokémon</th>
+                <th>Tipo(s)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for card in cards %}
+                <tr>
+                    <td><a href="{{ path('cards_show', {'card': card.id}) }}"><img src="{{ card.smallImage.url }}" alt=""/></a></td>
+                    <td>{{ card.name }}</td>
+                    <td>{{ card.id }}</td>
+                    <td>
+                        {% for type in card.types %}
+                            {{ type.name }} <br>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

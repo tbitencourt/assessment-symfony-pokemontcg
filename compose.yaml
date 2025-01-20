@@ -32,6 +32,8 @@ services:
   database:
     image: postgres:16-alpine
     container_name: 'assessment-symfony-pokemontcg-db'
+    ports:
+      - ${POSTGRES_HOST_PORT}:${POSTGRES_CONTAINER_PORT}
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -43,6 +45,7 @@ services:
       start_period: 60s
     volumes:
       - tbitencourt-dbdata:/var/lib/postgresql/data:rw
+      - ./docker/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql
     networks:
       - app-network
 ###< doctrine/doctrine-bundle ###
