@@ -1,4 +1,7 @@
 {
+    "name": "tbitencourt/assessment-symfony-pokemontcg",
+    "description": "Pre-hire Developer Coding Project.",
+    "keywords": ["php", "symfony", "assessment", "pokemon", "tcg"],
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -93,7 +96,9 @@
         "test:lint": "pint --test",
         "test:types": "phpstan analyse --ansi",
         "test:refactor": "rector --dry-run",
+        "test:composer": "composer validate",
         "test": [
+            "@test:composer",
             "@test:unit",
             "@test:lint",
             "@test:types",
