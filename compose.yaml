@@ -45,6 +45,7 @@ services:
       start_period: 60s
     volumes:
       - tbitencourt-dbdata:/var/lib/postgresql/data:rw
+      - ./docker/pgsql/create-testing-database.sql:/docker-entrypoint-initdb.d/10-create-testing-database.sql
     networks:
       - app-network
 ###< doctrine/doctrine-bundle ###

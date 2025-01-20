@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Detalhes da Carta</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Imagem em alta definição</th>
+                <td><img src="{{ card.largeImage.url }}" alt=""/></td>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <td>{{ card.name }}</td>
+            </tr>
+            <tr>
+                <th>ID do Pokémon</th>
+                <td>{{ card.id }}</td>
+            </tr>
+            <tr>
+                <th>Tipo(s)</th>
+                <td>
+                    {% for type in card.types %}
+                        {{ type.name }} <br>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Resistência(s)</th>
+                <td>
+                    {% for resistance in card.resistances %}
+                        {{ resistance.type.name }} {{ resistance.value }} <br>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Fraqueza(s)</th>
+                <td>
+                    {% for weakness in card.weaknesses %}
+                        {{ weakness.type.name }} {{ weakness.value }} <br>
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th>Lista de nomes dos ataques do Pokémon</th>
+                <td>
+                    {% for attack in card.attacks %}
+                        {{ attack.name }} <br>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('cards_index') }}">Voltar</a>
+{% endblock %}

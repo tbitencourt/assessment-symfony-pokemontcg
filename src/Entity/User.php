@@ -22,6 +22,18 @@ class User
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $email = null;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -40,17 +52,5 @@ class User
     public function setEmail(?string $email): void
     {
         $this->email = $email;
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): static
-    {
-        $this->id = $id;
-
-        return $this;
     }
 }
