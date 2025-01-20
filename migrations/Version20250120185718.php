@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20250120093118 extends AbstractMigration
+final class Version20250120185718 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -22,11 +22,10 @@ final class Version20250120093118 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE "card_images" (id SERIAL NOT NULL, card_id VARCHAR(255) DEFAULT NULL, type VARCHAR(255) NOT NULL, url VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_9220ED1E4ACC9A20 ON "card_images" (card_id)');
-        $this->addSql('CREATE TABLE "cards" (id VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, supertype VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE pokemon_attack (id SERIAL NOT NULL, name VARCHAR(255) NOT NULL, converted_energy_cost INT NOT NULL, damage VARCHAR(255) NOT NULL, text TEXT NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE card_pokemon_attack (pokemon_attack_id INT NOT NULL, card_id VARCHAR(255) NOT NULL, PRIMARY KEY(pokemon_attack_id, card_id))');
-        $this->addSql('CREATE INDEX IDX_67303BF8C4D8BD7F ON card_pokemon_attack (pokemon_attack_id)');
-        $this->addSql('CREATE INDEX IDX_67303BF84ACC9A20 ON card_pokemon_attack (card_id)');
+        $this->addSql('CREATE TABLE "cards" (id VARCHAR(255) NOT NULL, set_id VARCHAR(255) DEFAULT NULL, name VARCHAR(255) NOT NULL, supertype VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_4C258FD10FB0D18 ON "cards" (set_id)');
+        $this->addSql('CREATE TABLE pokemon_attack (id SERIAL NOT NULL, card_id VARCHAR(255) DEFAULT NULL, name VARCHAR(255) NOT NULL, converted_energy_cost INT NOT NULL, damage VARCHAR(255) NOT NULL, text TEXT NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_2B29516F4ACC9A20 ON pokemon_attack (card_id)');
         $this->addSql('CREATE TABLE pokemon_attack_cost (id SERIAL NOT NULL, pokemon_attack_id INT NOT NULL, type_id INT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_6C3CECBAC4D8BD7F ON pokemon_attack_cost (pokemon_attack_id)');
         $this->addSql('CREATE INDEX IDX_6C3CECBAC54C8C93 ON pokemon_attack_cost (type_id)');
@@ -62,8 +61,8 @@ final class Version20250120093118 extends AbstractMigration
         $this->addSql('DROP TRIGGER IF EXISTS notify_trigger ON messenger_messages;');
         $this->addSql('CREATE TRIGGER notify_trigger AFTER INSERT OR UPDATE ON messenger_messages FOR EACH ROW EXECUTE PROCEDURE notify_messenger_messages();');
         $this->addSql('ALTER TABLE "card_images" ADD CONSTRAINT FK_9220ED1E4ACC9A20 FOREIGN KEY (card_id) REFERENCES "cards" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE card_pokemon_attack ADD CONSTRAINT FK_67303BF8C4D8BD7F FOREIGN KEY (pokemon_attack_id) REFERENCES pokemon_attack (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE card_pokemon_attack ADD CONSTRAINT FK_67303BF84ACC9A20 FOREIGN KEY (card_id) REFERENCES "cards" (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE "cards" ADD CONSTRAINT FK_4C258FD10FB0D18 FOREIGN KEY (set_id) REFERENCES "sets" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE pokemon_attack ADD CONSTRAINT FK_2B29516F4ACC9A20 FOREIGN KEY (card_id) REFERENCES "cards" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE pokemon_attack_cost ADD CONSTRAINT FK_6C3CECBAC4D8BD7F FOREIGN KEY (pokemon_attack_id) REFERENCES pokemon_attack (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE pokemon_attack_cost ADD CONSTRAINT FK_6C3CECBAC54C8C93 FOREIGN KEY (type_id) REFERENCES "types" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE pokemon_resistance ADD CONSTRAINT FK_DA30E8F5C54C8C93 FOREIGN KEY (type_id) REFERENCES "types" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -81,8 +80,8 @@ final class Version20250120093118 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE "card_images" DROP CONSTRAINT FK_9220ED1E4ACC9A20');
-        $this->addSql('ALTER TABLE card_pokemon_attack DROP CONSTRAINT FK_67303BF8C4D8BD7F');
-        $this->addSql('ALTER TABLE card_pokemon_attack DROP CONSTRAINT FK_67303BF84ACC9A20');
+        $this->addSql('ALTER TABLE "cards" DROP CONSTRAINT FK_4C258FD10FB0D18');
+        $this->addSql('ALTER TABLE pokemon_attack DROP CONSTRAINT FK_2B29516F4ACC9A20');
         $this->addSql('ALTER TABLE pokemon_attack_cost DROP CONSTRAINT FK_6C3CECBAC4D8BD7F');
         $this->addSql('ALTER TABLE pokemon_attack_cost DROP CONSTRAINT FK_6C3CECBAC54C8C93');
         $this->addSql('ALTER TABLE pokemon_resistance DROP CONSTRAINT FK_DA30E8F5C54C8C93');
@@ -96,7 +95,6 @@ final class Version20250120093118 extends AbstractMigration
         $this->addSql('DROP TABLE "card_images"');
         $this->addSql('DROP TABLE "cards"');
         $this->addSql('DROP TABLE pokemon_attack');
-        $this->addSql('DROP TABLE card_pokemon_attack');
         $this->addSql('DROP TABLE pokemon_attack_cost');
         $this->addSql('DROP TABLE pokemon_resistance');
         $this->addSql('DROP TABLE card_pokemon_resistance');
