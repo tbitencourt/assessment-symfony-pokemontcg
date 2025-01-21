@@ -15,7 +15,7 @@
 3. Enter in container bash: `docker exec -ti assessment-symfony-pokemontcg-app bash`
 4. Install the packages: `composer install`
 5. Run the migrations: `php bin/console doctrine:migration:migrate`
-6. Run manually the command for the first import of cards database: `php bin/console app:import-cards-api`
+6. Put your API-KEY on .env and run manually the command for the first import of cards database: `php bin/console app:import-cards-api`
     - This command has 2 option inputs:
         1. 'skipSetsUpdate': It skips Sets update process, jumping directly to Card update one: `php bin/console app:import-cards-api --skipSetsUpdate`
         2. 'set:<set_id>': Passing the id of Set, it only update cards for that specific set.: `php bin/console app:import-cards-api --set=swsh4`
